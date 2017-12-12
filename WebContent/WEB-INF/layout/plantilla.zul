@@ -1,0 +1,7 @@
+<zk>
+	<borderlayout width="100%" height="330px">
+		<center>
+			<div self="@{insert(centro)}" sclass="content"></div>
+		</center>
+	</borderlayout>
+</zk>

@@ -1,0 +1,62 @@
+<zk>
+	<borderlayout hflex="1" vflex="1">
+
+		<north height="100px" border="none">
+			<div hflex="1" vflex="1" align="center"
+				style="background-color:#102d35; color:white; padding:5px 10px;">
+				<hbox hflex="1" vflex="1" align="center">
+					<a href="http://www.upse.edu.ec">
+						<image src="/img/UPSE.png" width="90px" />
+					</a>
+					<div width="400px">
+						<label value="PROYINV"
+							style="font-size: 2.4em;" />
+					</div>
+					<hbox hflex="1" vflex="1" pack="end" align="end">
+						<label value="" />
+
+						<button label="Iniciar Sesion" type="button"
+							href="http://192.168.44.169:8080/AplicacionInvestigadores-App-Zk/login.zul"/>
+						<button label="Registrarse" type="button"
+							onClick="inc.setSrc(url())" />
+					</hbox>
+				</hbox>
+			</div>
+
+		</north>
+
+
+		<center id="mainContent" autoscroll="true">
+			<include src="/footer.zul" id="inc" mode="defer" />
+		</center>
+		
+		
+		<south height="50px" border="none">
+			<div hflex="1" vflex="1">
+				<vbox hflex="1" vflex="1" align="center">
+					Aplicación para nvestigadores de Recoleccion de
+					datos (Desarrollo de aplicaciones con Java)
+					<a href="http://www.upse.edu.ec">
+						http://www.upse.edu.ec
+					</a>
+				</vbox>
+			</div>
+		</south>
+		
+		
+	</borderlayout>
+
+	<zscript>
+	String url() {
+		return ("/vistas/registro/regitro.zul");
+	}
+	
+	String url2(){
+	//ec.edu.upse.proyinv.generales.Conexion con= new ec.edu.upse.proyinv.generales.Conexion;
+	//Sessions.getCurrent().setAttribute("FormularioActual", opcion);
+	return ("http://192.168.44.169:8080/AplicacionInvestigadores-App-Zk/login.zul");
+	}
+</zscript>
+
+</zk>
+

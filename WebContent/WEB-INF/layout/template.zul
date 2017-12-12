@@ -1,0 +1,4 @@
+<vbox>
+  <hbox self="@insert(content)"/>
+  <hbox self="@insert(detail)"/>
+</vbox>

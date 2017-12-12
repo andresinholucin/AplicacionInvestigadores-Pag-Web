@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>	 
+<zk xmlns:n="native">
+ 
+	<n:div id="wrapper">		
+		<n:div id="header">
+			<n:h1>${labels.app.title}</n:h1>
+			<n:span id="logo">
+				<image src="/wp-content/uploads/tutorial-data//resources/img/logo.png" />
+			</n:span>
+		</n:div>
+		
+		<n:div id="nav">
+			<include src="/wp-content/uploads/tutorial-data//WEB-INF/templates/menu.zul" />
+		</n:div>
+		
+		<n:div id="content">
+			<n:h2><div self="@{insert(title)}" /></n:h2>
+			
+			<n:br />
+			
+			<div self="@{insert(content)}">
+			</div>
+		</n:div>
+			
+		<n:div id="footer">
+			<n:small>${labels.app_technology}</n:small>
+		</n:div>
+	</n:div>
+</zk>

@@ -1,0 +1,256 @@
+<zk>
+    <style>
+        .sysWin .z-window-embedded-cnt ,
+        .sysWin .z-window-overlapped-cnt,
+        .sysWin .z-window-popup-cnt {padding: 0px;}
+    </style>
+  
+   <div align="center">
+   <window id="winRegistro" 
+    	   apply="org.zkoss.bind.BindComposer" 
+   		   viewModel="@id('vm') @init('ec.edu.upse.proyinv.control.vistas.RegistroControl')"
+   		   border="none" 
+   		   width="350px" 
+   		   minheight="350" 
+   		   sclass="sysWin" 
+   		   position="center" 
+   		 >
+   		   
+            <caption label="Registro Proyinv" style="center" />
+            <label value="Datos Personales" />
+           
+            <borderlayout  vflex="min" hflex="min"> 
+            	<center>
+            		<grid>
+            			<rows>
+            				<row>
+            					Nombre:
+            					<textbox id="txtnombre"
+            						constraint="no empty" 
+            						value="@bind(vm.txtnombre)"/>
+            						</row> 
+            				<row>
+            					Apellido:
+            					<textbox id="txtapellido"
+            						 constraint="no empty" 
+            						 value="@bind(vm.txtapellido)"/>
+            				</row>
+            				<row>
+            					cedula:
+            					<textbox id="txtcedula"
+            						value="@bind(vm.txtcedula)"
+            						constraint="/^[0-9]+$/: Ingrese Solo numeros" />
+            				</row>
+            				<row>
+            					Fecha Nacimiento (yyyy/MM/dd):
+            					<datebox id="txtfechanacimientoid" onCreate="self.value = new Date()"
+            						
+            						format="yyyy-MM-dd" 
+									constraint="no empty, no future: Fecha Invalida"/>
+            				</row>
+            				<row>
+            					Email:
+            					<textbox id="txtemail" 
+            						value="@bind(vm.txtemail)"
+            						constraint="/.+@.+\.[a-z]+/: Ingrese Una Contraseña Correcta!"/>
+            				</row>
+            				<row>
+            					Sexo:
+            					<radiogroup id="radSexo" >
+            						<radio id="radm" label="Masculino" checked="true"></radio>
+            						<radio id="radf" label="Femenino" ></radio>
+            				           
+            					</radiogroup>
+            				</row>
+            				
+            			</rows>
+            		</grid>
+            	</center>
+            </borderlayout>
+            
+            <label value="Datos Laborales" />
+            <borderlayout vflex="min" hflex="min"> 
+            	<center>
+            		<grid>
+            			<rows>
+            				<row>
+            					Universidad:
+            					<combobox model="@load(vm.universidades)" 
+            					    selectedItem="@bind(vm.universidadSeleccionada)"
+            					    value="@load(vm.universidad.universidad)"
+            					    onSelect="@command('buscafacultades')"
+            					    readonly="true"
+            					    id="cbouniversidad">
+            						<template name="model">
+            							<comboitem
+            								label="@load(each.universidad)" value="@load(each)" />
+            						</template>
+            					</combobox>
+            				</row>
+            				<row>
+            					Facultad:
+            					<combobox model="@bind(vm.facultades)" 
+            					    selectedItem="@bind(vm.facultadSeleccionada)"
+            					    value="@load(vm.universidad.facultads)"
+            					    onSelect="@command('buscacarreras')"
+            					    readonly="true"
+            					    id="cbofacultad">
+            						<template name="model">
+            							<comboitem
+            								label="@bind(each.facultad)" value="@bind(each)" />
+            						</template>
+            					</combobox>
+            				</row>
+            				<row>
+            					Carrera:
+            					<combobox model="@bind(vm.carreras)" 
+            					    selectedItem="@bind(vm.carreraSeleccionada)"
+            					    value="@load(vm.universidad.facultads.carrera)"
+            					    readonly="true"
+            					    id="cbocarrera">
+            						<template name="model">
+            							<comboitem
+            								label="@bind(each.carrera)" value="@bind(each)" />
+            						</template>
+            					</combobox>
+            				</row>
+            			</rows>
+            		</grid>
+            	</center>
+            </borderlayout>
+            
+            <label value="Datos Residenciales" />
+            <borderlayout vflex="min" hflex="min"> 
+            	<center>
+            		<grid>
+            			<rows>
+            				<row>
+            					Pais:
+            					<combobox model="@load(vm.paises)" 
+            					    selectedItem="@bind(vm.paisSeleccionado)"
+            					    value="@load(vm.pais.pais)"
+            					    onSelect="@command('buscaprovincias')"
+            					    readonly="true"
+            					    id="cbopais">
+            						<template name="model">
+            							<comboitem
+            								label="@load(each.pais)" value="@load(each)" />
+            						</template>
+            					</combobox>
+            				</row>
+            				<row>
+            					Provincia:
+            					<combobox model="@load(vm.provincias)" 
+            					    selectedItem="@bind(vm.provinciaSeleccionado)"
+            					    value="@load(vm.pais.provincias)"
+            					    onSelect="@command('buscacantones')"
+            					    readonly="true">
+            						<template name="model">
+            							<comboitem
+            								label="@load(each.provincia)" value="@load(each)" />
+            						</template>
+            					</combobox>
+            				</row>
+            				<row>
+            					Canton:
+            					<combobox model="@load(vm.cantones)" 
+            					    selectedItem="@bind(vm.cantonSeleccionado)"
+            					    value="@load(vm.pais.provincias.cantons)"
+            					    onSelect="@command('buscaparroquia')"
+            					    readonly="true">
+            						<template name="model">
+            							<comboitem
+            								label="@load(each.canton)" value="@load(each)" />
+            						</template>
+            					</combobox>
+            				</row>
+            				<row>
+            					Parroquia:
+            					<combobox model="@load(vm.parroquias)" 
+            					    selectedItem="@bind(vm.parroquiaSeleccionado)"
+            					    value="@load(vm.pais.provincias.cantons.parroquias)"
+            					    readonly="true"
+            					   >
+            						<template name="model">
+            							<comboitem
+            								label="@load(each.parroquia)" value="@load(each)" />
+            						</template>
+            					</combobox>
+            				</row>
+            				<row>
+            					Direccion:
+            					<textbox id="txtdireccion"
+            						value="@bind(vm.txtdireccion)"/>
+            				</row>
+            			</rows>
+            		</grid>
+            	</center>
+            </borderlayout>
+            <label value="Datos Usuario" />
+            <borderlayout vflex="min" hflex="min" > 
+            	<center>
+            		<grid>
+            			<rows>
+            				<row>
+            					Nick Usuario:
+            					<textbox id="txtusuario"
+            						value="@bind(vm.txtusuario)"
+            						constraint="no empty" />
+            				</row>
+            				<row>
+            					Contraseña:
+            					<textbox id="txtcontrasenia" type="password"
+            						value="@bind(vm.password)"
+            						constraint="no empty" />
+            				</row>
+            				<row>
+            					Repetir Contraseña:
+            						<textbox id="txtrepitacontrasenia"
+            							type="password" value="@bind(vm.retypedPassword)"
+            							constraint="no empty" />
+            				</row>
+            			</rows>
+            		</grid>
+            	</center>
+            </borderlayout>		
+            <label value="compruebe!" />
+            <borderlayout height="100px" hflex="min"> 
+             <center border="none" >
+
+	             <html xmlns:zk="zk" xmlns:z="zul">
+	             	<head>
+	             		<script
+	             			src='https://www.google.com/recaptcha/api.js'>
+	             		</script>
+	             	</head>
+	             	<body>	             	
+	             			<div class="g-recaptcha"
+	             				data-sitekey="6Lf4uSsUAAAAACT5lksmEqqzbjtzm05YKNtE0wj6">
+	             			</div>
+	             			<input type="submit" value="Login"></input>
+	             	</body>
+	             </html>
+
+             </center>
+            <south border="none">
+            	<checkbox id="chkterminos" label="Acepta los Terminos Y Condiciones" />
+            	
+            </south>
+            		
+            </borderlayout>
+            
+            <label value="Aceptar"/>
+            				
+            <borderlayout vflex="min" hflex="min">
+            	<center border="none">
+            		<button id="grabayenvia"  label="Aceptar Y Enviar" onClick="@command('submit')"/>
+            	</center>
+            </borderlayout>
+            						
+   </window>
+   
+   </div>
+        
+    
+</zk>
+
